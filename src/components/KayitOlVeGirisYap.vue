@@ -6,7 +6,6 @@
 </template>
 <script>
 import Vue from "vue";
-import GirisYap from './GirisYap.vue';
 import KayitOl from "./KayitOl.vue";
 import GirisSayfasi from "./GirisSayfasi.vue";
 

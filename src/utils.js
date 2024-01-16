@@ -3,7 +3,7 @@ export function getCookie(name) {
     for (let i = 0; i < cookies.length; i++) {
       const cookie = cookies[i].trim();
       if (cookie.startsWith(`${name}=`)) {
-        return cookie.substring(name.length + 1);
+        return JSON.parse(cookie.substring(name.length + 1));
       }
     }
     return null;

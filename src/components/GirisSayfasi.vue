@@ -65,7 +65,6 @@ emailIsValid:false,
       axios
           .post('http://localhost:5116/api/Kullanici/GirisYap?eposta='+this.email+'&parola='+this.password)
           .then(response => {
-            // document.cookie = `user=${JSON.stringify(response.data)}`;
             setCookie("user",response.data)
             console.log(getCookie("user"))
             router.push("/AktiviteOnerisi")

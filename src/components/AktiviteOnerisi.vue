@@ -77,7 +77,7 @@ import {getCookie } from '@/utils';
     name: 'AktiviteOnerisi',
     created() {
       this.getCities();
-      this.kullanici=JSON.parse(getCookie("user"))
+      this.kullanici=(getCookie("user"))
       console.log(this.kullanici)
     },
     methods: {

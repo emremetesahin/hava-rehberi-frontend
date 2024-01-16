@@ -8,14 +8,12 @@
 <script>
 import AktiviteEkle from './components/AktiviteEkle.vue';
 import KayitOl from './components/KayitOl.vue';
-import GirisYap from './components/GirisYap.vue';
 
 export default {
   name: 'App',
   components: {
     KayitOl,
     AktiviteEkle,
-    GirisYap
 }
 }
 </script>

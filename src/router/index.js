@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from'vue-router'
-import AktiviteOnerisi from '@/components/AktiviteOnerisi';
+import AktiviteSayfasi from '@/components/AktiviteSayfasi';
 import KayitOlVeGirisYap from '@/components/KayitOlVeGirisYap';
 
 Vue.use(Router)
@@ -10,7 +10,7 @@ export default new Router({
         {
             path:'/AktiviteOnerisi',
             name:'AktiviteOnerisi',
-            component:AktiviteOnerisi
+            component:AktiviteSayfasi
         },
         {
             path:'/',
@@ -19,3 +19,4 @@ export default new Router({
         }
     ]
 })
+
