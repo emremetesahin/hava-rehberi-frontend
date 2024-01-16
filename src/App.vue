@@ -1,31 +1,24 @@
 <template>
   <div>
-    <!-- <Giris></Giris> -->
-    App
-    <KayitOl></KayitOl>
+    <!-- <AktiviteEkle></AktiviteEkle> -->
+    <router-view/>
   </div>
 </template>
 
 <script>
-import Giris from './components/GirisSayfasi.vue';
+import AktiviteEkle from './components/AktiviteEkle.vue';
 import KayitOl from './components/KayitOl.vue';
+import GirisYap from './components/GirisYap.vue';
 
 export default {
   name: 'App',
   components: {
-    Giris,
-    KayitOl
+    KayitOl,
+    AktiviteEkle,
+    GirisYap
 }
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

@@ -30,7 +30,7 @@
             
             <span v-if="pass!=pass2" class="text-danger d-flex">Girilen parolalar aynı olmak zorundadır</span>
             <div>            
-            <button  class="btn btn-secondary btn-lg btn-block p-2 g-col-6 mt-1" type="submit" style="margin-right: 20px;">Giriş Yap</button>
+            <button @click="goToLogin()" class="btn btn-secondary btn-lg btn-block p-2 g-col-6 mt-1" type="submit" style="margin-right: 20px;">Giriş Yap</button>
             <button @click="register()" class="btn btn-primary btn-lg btn-block p-2 g-col-6" type="button">Üye Ol</button>
           </div>
           </div>
@@ -59,13 +59,24 @@ axios
         email:this.email,
         parola:this.pass,
       })
-      .then(response => (console.log(response)))
+      .then(response =>
+      {
+        this.user=response.data
+        console.log(this.user)
+      })
     },
     validateEmail() {
       // Basit bir e-posta doğrulama regex'i kullanabilirsiniz.
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       this.emailIsValid = emailRegex.test(this.email);
     },
+    goToLogin()
+    {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
   },
   data() {
     return {
@@ -75,6 +86,7 @@ axios
       pass2:"",
       email:"",
       emailIsValid:false,
+      user:null
     };
   }})
 </script>
