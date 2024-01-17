@@ -21,40 +21,43 @@
 
                                         <tbody v-for="aktivite of aktiviteler">
                                             <tr>
-                                                <td>{{ aktivite.aktiviteadi }}</td>
-                                                <td>{{ aktivite.aktivitetipi }}</td>
-                                                <td>{{ aktivite.minpuan }}</td>
-                                                <td>{{ aktivite.maxpuan }}</td>
+                                                <td v-if="!aktivite.kullaniciId">{{ aktivite.aktiviteadi }}</td>
+                                                <td v-if="!aktivite.kullaniciId">{{ aktivite.aktivitetipi }}</td>
+                                                <td v-if="!aktivite.kullaniciId">{{ aktivite.minpuan }}</td>
+                                                <td v-if="!aktivite.kullaniciId">{{ aktivite.maxpuan }}</td>
+
+
+                                                <td v-if="aktivite.kullaniciId" style="background-color: #508bfc; color: aliceblue;">{{ aktivite.aktiviteadi }}</td>
+                                                <td v-if="aktivite.kullaniciId" style="background-color: #508bfc; color: aliceblue;">{{ aktivite.aktivitetipi }}</td>
+                                                <td v-if="aktivite.kullaniciId" style="background-color: #508bfc; color: aliceblue;">{{ aktivite.minpuan }}</td>
+                                                <td v-if="aktivite.kullaniciId" style="background-color: #508bfc; color: aliceblue;">{{ aktivite.maxpuan }}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
-                                Aşağıdan aktivte ekleyebilirsiniz
+                               <h2> Aşağıdan aktivte ekleyebilirsiniz</h2>
                                 <div class="form-outline mb-4">
                                     <input  type="email" v-model="aktiviteAdi" id="typeEmailX-2"
                                         class="form-control form-control-lg" placeholder="Aktivite Adı Giriniz" />
-                                        <fieldset @change="trigger($event)" style="text-align: center;">
+                                        <fieldset style="text-align: center;">
                                             <legend>Aktivite Tipini seçiniz</legend>
                                             <div style="display: inline-block;">
-                                                <input type="radio" name="radios" class="form-check-input " id="exampleRadio1">
-                                                <label class="form-check-label" for="exampleRadio1">İç mekan</label>
-                                            </div>
-                                            <div class="mb-3">
-                                                <input type="radio" name="radios" class="form-check-input" id="exampleRadio2">
+                                                <input type="radio" v-model="aktiviteTipi" name="radios" class="form-check-input " value="ic mekan" id="exampleRadio1">
+                                                <label class="form-check-label" for="exampleRadio1">İç mekan &nbsp;</label>
+                                                <input type="radio" v-model="aktiviteTipi" name="radios" class="form-check-input" value="dis mekan" id="exampleRadio2">
                                                 <label class="form-check-label" for="exampleRadio2">Dış Mekan</label>
                                             </div>
                                         </fieldset>
-                                    <label for="customRange3" class="form-label">0 ile 1 arası bir değer giriniz</label>
+                                    <label for="customRange3" class="form-label"><h6>0 ile 1 arası bir değer giriniz</h6></label>
                                     <div class="mb-3">
-                                        <label for="customRange3" class="form-label">Minimum Değer: 0.65</label>
-
-                                        <input type="range" class="form-range" min="0" max="1" step="0.01"
+                                        <label for="customRange3" class="form-label">Kötü hava şartları: {{ minpuan }}</label>
+                                        <input type="range" v-model="minpuan" class="form-range" min="0" max="1" step="0.01"
                                             id="customRange3">
-                                        <label for="customRange3" class="form-label">Maksimum Değer: 0.65</label>
-                                        <input type="range" class="form-range" min="0" max="1" step="0.01"
+                                        <label for="customRange3" class="form-label">Güzel hava şartları: {{ maxpuan }}</label>
+                                        <input type="range" v-model="maxpuan" class="form-range" min="0" max="1" step="0.01"
                                             id="customRange3">
                                     </div>
-                          <button type="button" class="btn btn-primary" >
+                          <button type="button" @click="AktiviteEkle()" class="btn btn-primary" >
                             Aktiviteyi Ekle
                           </button>
                                 </div>
@@ -89,29 +92,34 @@ import axios from "axios";
             this.aktiviteler=response.data
           })
         },
-      //   AktiviteEkle()
-      //   {
-      //       axios
-      //     .post('http://localhost:5116/api/Aktivite/AktiviteEkle',{
-      //       aktiviteadi:this.ad,
-      //       aktivitetipi:this.soyad,
-      //       minpuan:this.email,
-      //       maxpuan:this.pass,
-      //       kullaniciId:this.pass,
-      // })
-      //     .then(response =>
-      //     {
-      //       this.aktiviteler=response.data
-      //     })
-      //   }
+        AktiviteEkle()
+        {
+            console.log(this.aktiviteAdi)
+            console.log(this.aktiviteTipi)
+            console.log(this.minpuan)
+            console.log(this.maxpuan)
+            console.log(this.kullaniciId)
+            axios
+          .post('http://localhost:5116/api/Aktivite/AktiviteEkle',{
+            aktiviteadi:this.aktiviteAdi,
+            aktivitetipi:this.aktiviteTipi,
+            minpuan:this.minpuan,
+            maxpuan:this.maxpuan,
+            kullaniciId:this.kullaniciId,
+      })
+          .then(response =>
+          {
+          this. AktiviteleriGetir()
+          })
+        }
       },
       data() {
         return {
           aktiviteler:[],
           aktiviteTipi:"",
           aktiviteAdi:"",
-          minpuan:"",
-          maxpuan:"",
+          minpuan:0.5,
+          maxpuan:0.5,
           kullaniciId:"",
         };
       }})

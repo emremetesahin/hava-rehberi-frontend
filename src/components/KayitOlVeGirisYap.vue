@@ -14,6 +14,6 @@ export default Vue.extend({
   components:{
     KayitOl,
     GirisSayfasi
-}
+},
 })
 </script>

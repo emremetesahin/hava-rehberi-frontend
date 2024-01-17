@@ -3,7 +3,9 @@
     <section class="vh-100" style="background-color: #508bfc;">
       <div class=" py-0 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
-        <p class="h5" style="margin-left: 400px;">Aktivite Önerisine Hoşgeldin {{ kullanici.ad }} {{ kullanici.soyad }}</p>
+          <div class="card shadow-2-strong" style="width: fit-content;">
+            <p class="h5">Hava Durumu Rehberine Hoşgeldin {{ kullanici.ad }} {{ kullanici.soyad }}</p>
+          </div>
 
           <div class="col-12 col-md-8 col-lg-6 col-xl-10">
             <div class="card shadow-2-strong" style="border-radius: 1rem;">
@@ -27,7 +29,7 @@
                         <div class="card-body">
                           <h5 class="card-title">{{ havaDurumuTahmini.date }} &nbsp; {{ havaDurumuTahmini.description }}
                           </h5>
-                          <p class="card-text">{{ havaDurumuTahmini.day }} günü hava {{ havaDurumuTahmini.degree }} derece
+                          <p class="card-text">{{ havaDurumuTahmini.day }} günü hava {{ havaDurumuTahmini.degree }} °C
                             <br> Nem oranı %{{ havaDurumuTahmini.humidity }}
                             <br>Hava Sıcaklığı {{ havaDurumuTahmini.min }}-{{ havaDurumuTahmini.max }}
                           </p>
@@ -42,17 +44,29 @@
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
                                 <div class="modal-header">
-                                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                  <h5 class="modal-title" id="exampleModalLabel">Aktivite Önerisi</h5>
                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                   </button>
                                 </div>
                                 <div class="modal-body">
-                                  {{aktiviteOnerileri.data}}
+                                  {{res.date }} günü için hava  {{res.derece }} <br> hava durumu {{res.aciklama}}
+                                  <br>
+                                  Bu havada yapılabilecek  
+                                  <br> 
+                                  Kapalı alan aktiviteleri
+                                  :<span v-for="oneri of res.icMekanOneriler">{{oneri}}</span>
+
+                                  <br> 
+                                  Açık alan aktiviteleri
+                                  :<span v-for="oneri of res.disMekanOneriler">{{oneri}}</span>
+
+                                  <!-- {{aktiviteOnerileri.icMekanOneriler[0]}} -->
+                                  <!-- {{aktiviteOnerileri.disMekanOneriler[0]}} -->
                                 </div>
                                 <div class="modal-footer">
-                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                  <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+                                  <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                                 </div>
                               </div>
                             </div>
@@ -103,8 +117,7 @@ import {getCookie } from '@/utils';
         axios
           .get('http://localhost:5116/api/Aktivite/AktiviteOner?sehir='+this.selectedCity+'&date='+tarih)
           .then(response => {
-            console.log(response)
-            this.aktiviteOnerileri=response
+            this.res=response.data
           })
       }
     },
@@ -113,8 +126,13 @@ import {getCookie } from '@/utils';
         cities: [],
         selectedCity:"",
         hataDurumuTahminleri:[],
-        aktiviteOnerileri:{},
-        kullanici:{}
+        icmekanOnerileri:[],
+        disMekanOneriler:[],
+        tarih:"mes",
+        derece:"",
+        aciklama:"",
+        kullanici:{},
+        res:{}
       };
     },
   })
